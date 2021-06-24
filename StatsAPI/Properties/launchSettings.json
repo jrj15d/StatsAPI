@@ -1,0 +1,26 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/StatsAPI",
+      "sslPort": 0
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:51647",
+      "sslPort": 0
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "StatsAPI Dev": {
+      "commandName": "IISExpress",
+      "launchBrowser": true
+    },
+    "StatsAPI": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api/players/active"
+    }
+  }
+}
