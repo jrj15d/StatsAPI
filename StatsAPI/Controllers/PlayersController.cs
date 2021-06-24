@@ -56,21 +56,5 @@ namespace StatsAPI.Controllers
             return BadRequest();
 
         }
-
-        [HttpGet("batting/{playerId}")]
-        public ActionResult<IEnumerable<Batting>> GetPlayerBatting(string playerId)
-        {
-            logger.LogInformation($"Getting batting stats for player with id: {playerId}");
-            List<Batting> list = new List<Batting>();
-
-            foreach (var row in DataContext.BaseballDatabase.PlayerBatting(playerId))
-                list.Add(new Batting(row));
-
-            if (list.Count > 0)
-                return list;
-            else
-                return BadRequest();
-
-        }
     }
 }
