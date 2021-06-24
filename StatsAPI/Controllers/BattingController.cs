@@ -19,8 +19,20 @@ namespace StatsAPI.Controllers
             this.logger = logger;
         }
 
+        public ActionResult<IEnumerable<Batting>> Get()
+        {
+            List<Batting> list = new List<Batting>();
+
+            foreach (var row in DataContext.BaseballDatabase.PlayerBatting())
+                list.Add(new Batting(row));
+
+            if (list.Count > 0)
+                return list;
+            else
+                return BadRequest();
+        }
         [HttpGet("{playerId}")]
-        public ActionResult<IEnumerable<Batting>> GetPlayerBatting(string playerId)
+        public ActionResult<IEnumerable<Batting>> GetPlayer(string playerId)
         {
             logger.LogInformation($"Getting batting stats for player with id: {playerId}");
             List<Batting> list = new List<Batting>();
