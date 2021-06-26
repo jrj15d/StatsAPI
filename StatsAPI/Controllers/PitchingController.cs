@@ -31,6 +31,19 @@ namespace StatsAPI.Controllers
                 return BadRequest();
         }
 
+        [HttpGet("active")]
+        public IEnumerable<Pitching> GetActive()
+        {
+            logger.LogInformation("Getting all active pitchers");
+
+            var activePlayers = DataContext.BaseballDatabase.Active;
+            var pitching = DataContext.BaseballDatabase.Pitching;
+            return
+                from player in activePlayers
+                join pitcher in pitching on player.PlayerId equals pitcher.PlayerID
+                select new Pitching(pitcher);
+        }
+
         [HttpGet("{playerId}")]
         public ActionResult<IEnumerable<Pitching>> GetPlayer(string playerId)
         {
