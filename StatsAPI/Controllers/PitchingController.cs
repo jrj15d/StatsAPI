@@ -22,7 +22,7 @@ namespace StatsAPI.Controllers
         public ActionResult<IEnumerable<Pitching>> Get()
         {
             List<Pitching> list = new List<Pitching>();
-            foreach (var row in DataContext.BaseballDatabase.PlayerPitching())
+            foreach (var row in DataContext.BaseballDatabase.Pitching)
                 list.Add(new Pitching(row));
 
             if (list.Count > 0)

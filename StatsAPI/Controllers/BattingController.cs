@@ -23,7 +23,7 @@ namespace StatsAPI.Controllers
         {
             List<Batting> list = new List<Batting>();
 
-            foreach (var row in DataContext.BaseballDatabase.PlayerBatting())
+            foreach (var row in DataContext.BaseballDatabase.Batting)
                 list.Add(new Batting(row));
 
             if (list.Count > 0)

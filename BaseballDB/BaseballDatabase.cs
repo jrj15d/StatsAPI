@@ -32,21 +32,29 @@ namespace BaseballDB
                     yield return player;
             }
         }
-
-        public IEnumerable<BattingTable> PlayerBatting()
+        public IEnumerable<BattingTable> Batting
         {
-            var batting = connection.Query<BattingTable>($"SELECT * FROM Batting");
-            return batting.ToArray();
+            get
+            {
+                var batting = connection.Query<BattingTable>($"SELECT * FROM Batting");
+                return batting.ToArray();
+            }
+
         }
+        public IEnumerable<PitchingTable> Pitching
+        {
+            get
+            {
+                var pitching = connection.Query<PitchingTable>($"SELECT * FROM Pitching");
+                return pitching.ToArray();
+            }
+
+        }
+
         public IEnumerable<BattingTable> PlayerBatting(string playerId)
         {
             var batting = connection.Query<BattingTable>($"SELECT * FROM Batting WHERE PlayerID = '{playerId}'");
             return batting.ToArray();
-        }
-        public IEnumerable<PitchingTable> PlayerPitching()
-        {
-            var pitching = connection.Query<PitchingTable>($"SELECT * FROM Pitching");
-            return pitching.ToArray();
         }
         public IEnumerable<PitchingTable> PlayerPitching(string playerId)
         {
