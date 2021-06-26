@@ -72,14 +72,16 @@ namespace BaseballDB
             var res3 = connection.CreateTable<PitchingTable>();
 
             if (res == 0)
-                InitPlayers();
+                PopulatePlayers();
             if (res2 == 0)
-                InitBatting();
+                PopulateBatting();
             if (res3 == 0)
-                InitPitching();
+                PopulatePitching();
         }
 
-        private void InitPlayers()
+        /* Populate SQLite tables */
+        /* ================================================================= */
+        private void PopulatePlayers()
         {
             // Get CSV records
             var records = ParsePlayerRecords().ToList();
@@ -93,7 +95,7 @@ namespace BaseballDB
             try
             {
                 int res = connection.InsertAll(players);
-                Console.WriteLine($"[InitPlayers] Inserted {res} players");
+                Console.WriteLine($"[PopulatePlayers] Inserted {res} players");
             }
             catch (Exception e)
             {
@@ -101,7 +103,7 @@ namespace BaseballDB
             }
 
         }
-        private void InitBatting()
+        private void PopulateBatting()
         {
             // Get CSV records
             var records = ParseBattingRecords().ToList();
@@ -115,14 +117,14 @@ namespace BaseballDB
             try
             {
                 int res = connection.InsertAll(batting);
-                Console.WriteLine($"[InitBatting] Inserted {res} batting records");
+                Console.WriteLine($"[PopulateBatting] Inserted {res} batting records");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Insert Error");
             }
         }
-        private void InitPitching()
+        private void PopulatePitching()
         {
             // Get CSV records
             var records = ParsePitchingRecords().ToList();
@@ -136,13 +138,17 @@ namespace BaseballDB
             try
             {
                 int res = connection.InsertAll(pitching);
-                Console.WriteLine($"[InitBatting] Inserted {res} pitching records");
+                Console.WriteLine($"[PopulateBatting] Inserted {res} pitching records");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Insert Error");
             }
         }
+        /* ================================================================= */
+
+        /* Parse CSV files and convert them to objects */
+        /* ================================================================= */
         private IEnumerable<PlayerRecord> ParsePlayerRecords()
         {
             using (var reader = new StreamReader($"{csvPath}\\People.csv"))
@@ -170,11 +176,10 @@ namespace BaseballDB
                 return records;
             }
         }
+        /* ================================================================= */
 
-
-        /// <summary>
-        /// Represents a single record from People.csv
-        /// </summary>
+        /* Classes that represent CSV records */
+        /* ================================================================= */
         internal class PlayerRecord
         {
             public PlayerRecord() { }
@@ -374,5 +379,6 @@ namespace BaseballDB
             public ushort? SF { get; set; }
             public ushort? GIDP { get; set; }
         }
+        /* ================================================================= */
     }
 }
