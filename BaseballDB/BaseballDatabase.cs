@@ -32,6 +32,19 @@ namespace BaseballDB
                     yield return player;
             }
         }
+        public IEnumerable<PlayerTable> Active
+        {
+            get
+            {
+                foreach (var player in Players)
+                {
+                    if (player.DateFinalGame?.Year == DateTime.Today.Year)
+                    {
+                        yield return player;
+                    }
+                }
+            }
+        }
         public IEnumerable<BattingTable> Batting
         {
             get
